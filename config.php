@@ -6,26 +6,22 @@ define('DB_USERNAME', 'avnadmin');
 define('DB_PASSWORD', 'AVNS_ld4LzUY-jdGhygU39uv');
 define('DB_NAME', 'crud_app');
 
-/* Connect to MySQL */
-$link = mysqli_init();
-
-/* Enable SSL — REQUIRED by Aiven */
-mysqli_ssl_set($link, NULL, NULL, __DIR__ . "/ca.pem", NULL, NULL);
+/* Build connection string with SSL disabled */
+$server_with_port = DB_SERVER . ':' . DB_PORT;
 
 /* Attempt connection */
-mysqli_real_connect(
-    $link,
-    DB_SERVER,
+$link = mysqli_connect(
+    $server_with_port,
     DB_USERNAME,
     DB_PASSWORD,
     DB_NAME,
-    DB_PORT,
-    NULL,
-    MYSQLI_CLIENT_SSL
+    null,
+    null,
+    MYSQLI_CLIENT_SSL_DONT_VERIFY_SERVER_CERT // disable cert checking
 );
 
 /* Check connection */
-if (mysqli_connect_errno()) {
+if ($link === false) {
     die("ERROR: Could not connect. " . mysqli_connect_error());
 }
 ?>

@@ -16,8 +16,7 @@ $link = mysqli_connect(
     DB_PASSWORD,
     DB_NAME,
     null,
-    null,
-    MYSQLI_CLIENT_SSL_DONT_VERIFY_SERVER_CERT // disable cert checking
+    null
 );
 
 /* Check connection */
